@@ -17,8 +17,7 @@ public class Publisher {
     private String state;
     private String zip;
 
-    @OneToMany
-    @JoinColumn(name = "publisher-id")
+    @OneToMany(mappedBy = "publisher")
     private Set<Book> books = new HashSet<>();
 
     public Set<Book> getBooks() {

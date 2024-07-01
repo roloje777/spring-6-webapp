@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 public class BootstrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
-    public final PublisherRepository publisherRepository;
+    private final BookRepository bookRepository;    public final PublisherRepository publisherRepository;
 
     public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
@@ -55,32 +54,26 @@ public class BootstrapData implements CommandLineRunner {
         authorRepository.save(ericSaved);
         authorRepository.save(rodSaved);
 
-        System.out.println("In Bootstrap");
-        System.out.println("Author Count: " + authorRepository.count());
-        System.out.println("Book Count: " + bookRepository.count());
-
         Publisher p1 = new Publisher();
         p1.setName("ABC");
         p1.setAddress("1st street");
         p1.setCity("New York");
         p1.setState("NY");
         p1.setZip("67yt");
+        Publisher savedPublisher = publisherRepository.save(p1);
+
+        dddSaved.setPublisher(p1);
+        noEJBSaved.setPublisher(p1);
+
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
 
 
-        Publisher p2 = new Publisher();
-        p2.setName("XYZ");
-        p2.setAddress("No entry Road");
-        p2.setCity("Los Angeles");
-        p2.setState("LA");
-        p2.setZip("787787-Z");
-
-        p1.getBooks().add(dddSaved);
-        p2.getBooks().add(noEJBSaved);
-
-        publisherRepository.save(p1);
-        publisherRepository.save(p2);
-
-
+        System.out.println("In Bootstrap");
+        System.out.println("Author Count: " + authorRepository.count());
+        System.out.println("Book Count: " + bookRepository.count());
         System.out.println("Publisher Count: " + publisherRepository.count());
 
 
